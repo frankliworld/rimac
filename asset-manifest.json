@@ -1,7 +1,7 @@
 {
   "files": {
     "main.css": "/rimac/static/css/main.636c6f3f.css",
-    "main.js": "/rimac/static/js/main.e3e8b6c6.js",
+    "main.js": "/rimac/static/js/main.a9b3181a.js",
     "static/js/787.ea1fd698.chunk.js": "/rimac/static/js/787.ea1fd698.chunk.js",
     "static/media/graph-welcome.svg": "/rimac/static/media/graph-welcome.e254760d3d86a38d9b495341dfd3e09b.svg",
     "static/media/bg-graph-main.svg": "/rimac/static/media/bg-graph-main.6a1210fcc76955e1a8299be1d954d2bd.svg",
@@ -11,11 +11,11 @@
     "static/media/covering-1.svg": "/rimac/static/media/covering-1.68cda6af5e5c6f0d61c8e026b58c4901.svg",
     "index.html": "/rimac/index.html",
     "main.636c6f3f.css.map": "/rimac/static/css/main.636c6f3f.css.map",
-    "main.e3e8b6c6.js.map": "/rimac/static/js/main.e3e8b6c6.js.map",
+    "main.a9b3181a.js.map": "/rimac/static/js/main.a9b3181a.js.map",
     "787.ea1fd698.chunk.js.map": "/rimac/static/js/787.ea1fd698.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.636c6f3f.css",
-    "static/js/main.e3e8b6c6.js"
+    "static/js/main.a9b3181a.js"
   ]
 }
