@@ -1,6 +1,7 @@
 import styled from "styled-components";
 import { GlobalStyle } from "../styles/GlobalStyle";
 import "./layout.css";
+import "antd/dist/antd.css";
 
 export const Layout = ({ children }) => {
   return (

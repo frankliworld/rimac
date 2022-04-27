@@ -1,11 +1,22 @@
-import { useState } from "react";
+import { message } from "antd";
+import { useEffect, useState } from "react";
 import styled from "styled-components";
 import { TextSmall } from "../styles/TextStyles";
 
-const Amount = () => {
+const Amount = (props) => {
+  const { min, max, changeValue } = props;
   const [amount, setAmount] = useState(14300);
-  const min = 12500;
-  const max = 16500;
+  useEffect(() => {
+    if (amount < min) {
+      setAmount(min);
+    }
+    if (amount > max) {
+      setAmount(max);
+    }
+    amount === min && message.info("El mínimo es $" + min);
+    amount === max && message.info("El máximo es $" + max);
+    changeValue && changeValue(amount);
+  }, [amount]);
   return (
     <Wrapper>
       <Section>

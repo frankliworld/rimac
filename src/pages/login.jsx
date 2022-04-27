@@ -6,25 +6,29 @@ import { GraphMain } from "../components/icons";
 import CheckBox from "../components/inputs/CheckBox";
 import Input from "../components/inputs/input";
 import { Header } from "../components/layout/header";
-import { BodyIntro, BodyMain } from "../components/styles/TextStyles";
+import {
+  BodyIntro,
+  BodyMain,
+  TextSmall,
+} from "../components/styles/TextStyles";
 import { Container, Grid } from "../components/styles/WrapStyles";
+import { Media } from "../utils/io";
+import Bg from "../assets/icons/bg-graph-main.svg";
+import { message } from "antd";
 
 const Login = () => {
   return (
     <LoginContainer>
-      <Header />
-      <Container align="center">
-        <Grid columns="37">GR</Grid>
-
-        <Grid columns="2">
-          <Section>
-            <Graphic />
-          </Section>
-          <Section>
-            <Form />
-          </Section>
-        </Grid>
-      </Container>
+      <Header sticky />
+      <CustomContainer align="center">
+        <Section className="sec-1">
+          <MainIntro />
+        </Section>
+        <Section className="sec-2">
+          <Form />
+        </Section>
+        <By>© 2021 RIMAC Seguros y Reaseguros.</By>
+      </CustomContainer>
     </LoginContainer>
   );
 };
@@ -34,23 +38,112 @@ export default Login;
 const LoginContainer = styled.div`
   height: 100%;
 `;
-const Section = styled.section`
+const CustomContainer = styled(Container)`
   display: grid;
-  place-content: center;
+  grid-template-columns: repeat(35, 1fr);
+  align-items: center;
+  .sec-1 {
+    display: grid;
+    grid-column-start: 2;
+    grid-column-end: span 10;
+    height: 100%;
+    align-items: center;
+  }
+  .sec-2 {
+    grid-column-start: 21;
+    grid-column-end: span 10;
+  }
+  @media ${Media.mobile} {
+    grid-template-rows: repeat(3, 1fr);
+    .sec-1 {
+      grid-row-start: 1;
+      grid-row-end: span 1;
+      grid-column-start: 1;
+      grid-column-end: span 35;
+    }
+    .sec-2 {
+      grid-row-start: 2;
+      grid-row-end: span 2;
+      grid-column-start: 1;
+      grid-column-end: span 35;
+    }
+  }
 `;
-const Graphic = () => (
-  <GraphicContainer>
+const Section = styled.section`
+  position: relative;
+`;
+const MainIntro = () => (
+  <IntroWrapped>
+    <BgImage src={Bg} />
     <GraphMain />
-  </GraphicContainer>
+    <Group>
+      <TagName>¡NUEVO!</TagName>
+      <Intro>
+        Seguro <Span>Vehicular Tracking</Span>
+      </Intro>
+      <Text>Cuentanos donde le haras seguimiento a tu seguro</Text>
+    </Group>
+  </IntroWrapped>
 );
-const GraphicContainer = styled.div``;
-const Intro = styled(BodyIntro)``;
+const IntroWrapped = styled.div`
+  display: flex;
+  flex-direction: column;
+  @media ${Media.mobile} {
+    background: #f7f8fc;
+    flex-direction: row-reverse;
+    padding-top: 56px;
+    justify-content: space-between;
+    align-items: center;
+  }
+`;
+const By = styled.div`
+  position: absolute;
+  bottom: 20px;
+  font-family: "Roboto";
+  font-style: normal;
+  font-weight: 300;
+  font-size: 12px;
+  line-height: 20px;
+  letter-spacing: 0.2px;
+  color: #a3abcc;
+`;
+const BgImage = styled.img`
+  position: absolute;
+  right: -30%;
+  top: 0;
+  z-index: -1;
+  min-width: 800px;
+  max-width: none;
+  @media ${Media.mobile} {
+    display: none;
+  }
+`;
+const Group = styled.div`
+  @media ${Media.mobile} {
+    padding-right: 40px;
+  }
+`;
+const Intro = styled(BodyIntro)`
+  @media ${Media.mobile} {
+    font-size: 28px;
+  }
+`;
+const Span = styled.span`
+  color: var(--Primary);
+`;
+const Text = styled(TextSmall)``;
+const TagName = styled(TextSmall)`
+  margin-bottom: 10px;
+  font-weight: bold;
+  font-family: "Lato", sans-serif;
+`;
 const Form = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const from = location.state?.from?.pathname || "/";
-  
+
   const [data, setData] = useState({});
+  const [checked, setChecked] = useState(false);
   const [formStatus, setFormStatus] = useState({
     document: {
       invalid: false,
@@ -62,7 +155,8 @@ const Form = () => {
     },
     plaque: {
       invalid: false,
-      message: "Ingrese una placa válida de 6 a 8 dígitos, en mayúsculas ejemplo: ABC-123",
+      message:
+        "Ingrese una placa válida de 6 a 8 dígitos, en mayúsculas ejemplo: ABC-123",
     },
   });
 
@@ -89,9 +183,12 @@ const Form = () => {
       if (!handlePlaque(plaque)) {
         throw formStatus.plaque.message;
       }
+      if (!checked) {
+        throw "Debe aceptar los términos y condiciones";
+      }
       return true;
     } catch (e) {
-      console.log(e);
+      message.error(e);
     }
     return false;
   };
@@ -133,7 +230,10 @@ const Form = () => {
         invalid={data.plaque && !handlePlaque(data.plaque)}
         message={formStatus.plaque.message}
       />
-      <CheckBox label="Acepto la Política de Protecciòn de Datos Personales y los Términos y Condiciones." />
+      <CheckBox
+        onChange={(e) => setChecked(e.target.checked)}
+        label="Acepto la Política de Protecciòn de Datos Personales y los Términos y Condiciones."
+      />
       <Button title="cotízalo" />
     </FormContainer>
   );

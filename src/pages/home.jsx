@@ -5,7 +5,6 @@ import Enrollment from "../components/cards/enrollment";
 import { Master } from "../components/layout/master";
 import {
   BodyMain,
-  H1,
   MediumText,
   TextSmall,
 } from "../components/styles/TextStyles";
@@ -18,10 +17,45 @@ import data from "../services/data";
 import Resume from "../components/cards/resume";
 
 const Home = () => {
+  const [amount, setAmount] = useState(0);
+  const [price, setPrice] = useState(20);
   const [list, setList] = useState([]);
+
+  const min = 12500;
+  const max = 16500;
+
   useEffect(() => {
     setList(data.listCovering);
   }, []);
+
+  useEffect(() => {
+    if (list.length > 0) {
+      const newList = [...list];
+      if (amount > 16000) {
+        newList[1].disabled = true;
+      } else {
+        newList[1].disabled = false;
+      }
+      setList(newList);
+      setPrice(20 + sumAdd());
+    }
+  }, [amount]);
+
+  const updateList = (index, add) => {
+    const newList = [...list];
+    newList[index].add = !add;
+    setList(newList);
+    setPrice(20 + sumAdd());
+  };
+
+  const changeAmount = (value) => {
+    setAmount(value);
+  };
+
+  const sumAdd = () =>
+    list
+      .filter((item) => item.add && !item.disabled)
+      .reduce((acc, item) => acc + item.price, 0);
 
   return (
     <Master>
@@ -34,13 +68,13 @@ const Home = () => {
             </Title>
             <Text>Conoce las coberturas para tu plan</Text>
             <Enrollment />
-            <Amount />
+            <Amount min={min} max={max} changeValue={(x) => changeAmount(x)} />
             <hr />
             <Subtitle>Agrega o quita coberturas</Subtitle>
-            <ContentTabs data={list} />
+            <ContentTabs data={list} onClick={updateList} />
           </Section>
           <Section className="sec-2">
-            <Resume/>
+            <Resume total={price} />
           </Section>
         </Wrapped>
       </Container>
@@ -64,7 +98,7 @@ const Wrapped = styled.div`
     overflow: auto;
     padding: 40px 0;
     display: grid;
-    &::-webkit-scrollbar{
+    &::-webkit-scrollbar {
       width: 0;
     }
   }
@@ -89,6 +123,7 @@ const Wrapped = styled.div`
       grid-column-start: 3;
       grid-column-end: span 27;
       display: flex;
+      border-top: 1px solid #e6e6e6;
     }
   }
 `;
@@ -120,7 +155,7 @@ const WrappedBack = styled.div`
   gap: 10px;
 `;
 
-const ContentTabs = ({ data }) => (
+const ContentTabs = ({ data, onClick }) => (
   <>
     <Tabs defaultActiveKey="1">
       <TabPane key="1" active>
@@ -130,7 +165,7 @@ const ContentTabs = ({ data }) => (
       <TabPane key="3">mejora tu plan</TabPane>
     </Tabs>
     {data.map((item, index) => (
-      <Covering key={index} {...item} />
+      <Covering key={index} {...item} add={(x) => onClick(index, x)} />
     ))}
   </>
 );

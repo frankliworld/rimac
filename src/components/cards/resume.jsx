@@ -1,32 +1,64 @@
+import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
+import { Media } from "../../utils/io";
 import Button from "../buttons/button";
 import { TextSmall } from "../styles/TextStyles";
 
-const Resume = () => {
+const Resume = (props) => {
+  const { total } = props;
+  const navigate = useNavigate();
+
+  const handleClick = () => {
+    navigate("/welcome");
+  }
   return (
     <Wrapper>
-      <Title>MONTO</Title>
-      <Price>$35.00</Price>
-      <Small>mensuales</Small>
-      <hr />
-      <Group>
-        <Title2>El precio incluye:</Title2>
-        <Item name="Llanta de respuesto" />
-        <Item name="Analisis de motor" />
-        <Item name="Aros gratis" />
-      </Group>
+      <Desk>
+        <Title>MONTO</Title>
+        <Price>${total.toFixed(2)}</Price>
+        <Small>mensuales</Small>
+        <hr />
+        <Group>
+          <Title2>El precio incluye:</Title2>
+          <Item name="Llanta de respuesto" />
+          <Item name="Analisis de motor" />
+          <Item name="Aros gratis" />
+        </Group>
+      </Desk>
+      <Mov>
+        <Price>${total.toFixed(2)}</Price>
+        <Small>mensuales</Small>
+      </Mov>
 
-      <Button title="LO QUIERO" style={{ width: "100%" }} />
+      <Button title="LO QUIERO" style={{ width: "100%", margin: 0 }} onClick={handleClick} />
     </Wrapper>
   );
 };
 export default Resume;
 
-const Wrapper = styled.div``;
+const Wrapper = styled.div`
+  @media ${Media.mobile} {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: 20px;
+    align-items: center;
+  }
+`;
 const Title = styled(TextSmall)`
   font-family: "Lato", sans-serif;
   font-weight: bold;
   margin-bottom: 10px;
+`;
+const Desk = styled.div`
+  @media ${Media.mobile} {
+    display: none;
+  }
+`;
+const Mov = styled.div`
+  display: none;
+  @media ${Media.mobile} {
+    display: block;
+  }
 `;
 const Title2 = styled(Title)`
   font-weight: normal;

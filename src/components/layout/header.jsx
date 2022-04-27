@@ -4,9 +4,10 @@ import { IconPhone, Logo } from "../icons";
 import { MediumText, TextSmall } from "../styles/TextStyles";
 import { Container } from "../styles/WrapStyles";
 
-export const Header = () => {
+export const Header = (props) => {
+  const {sticky} = props;
   return (
-    <HeaderContainer>
+    <HeaderContainer sticky={sticky} >
       <CustomContainer align="center" className="container">
         <Logo />
         <Contact />
@@ -23,6 +24,14 @@ const HeaderContainer = styled.div`
   @media ${Media.mobile} {
     height: 56px;
   }
+
+  ${props => props.sticky && `
+    position: fixed;
+    top: 0;
+    z-index: 1;
+    background: transparent;
+    border-color: transparent;
+  `}
 `;
 
 const CustomContainer = styled(Container)`
@@ -45,13 +54,16 @@ const WrappedContact = styled.div`
   display: grid;
   grid-template-columns: 1fr 1fr;
   align-items: center;
+  @media ${Media.mobile} {
+    grid-template-columns: 1fr;
+  }
 `;
 const Text = styled(TextSmall)`
   margin: 0;
   font-size: 12px;
   color: var(--Text2);
   @media ${Media.mobile} {
-    visibility: hidden;
+    display: none;
   }
 `;
 const TextPhone = styled(MediumText)`

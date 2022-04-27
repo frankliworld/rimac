@@ -4,7 +4,7 @@ import AddOrRemove from "../buttons/addOrRemove";
 import { MediumText, TextSmall } from "../styles/TextStyles";
 
 const Covering = (props) => {
-  const { name, image, description, add } = props;
+  const { name, image, description, add, disabled } = props;
   const [isOpen, setIsOpen] = useState(false);
 
   const handleClick = () => {
@@ -16,7 +16,7 @@ const Covering = (props) => {
         <Image src={image} alt={name} />
         <Group>
           <Name>{name}</Name>
-          <AddOrRemove add={add} />
+          {disabled ? <Error>No disponible por el monto asegurado</Error> : <AddOrRemove add={add} />}
         </Group>
         <Touchable onClick={handleClick}>
           <svg
@@ -44,7 +44,7 @@ const Covering = (props) => {
 };
 export default Covering;
 const WrappedCovering = styled.div`
-  border-bottom: 1px solid #E4E8F7;
+  border-bottom: 1px solid #e4e8f7;
 `;
 const Top = styled.div`
   display: grid;
@@ -66,4 +66,7 @@ const Touchable = styled.div`
 `;
 const Description = styled(TextSmall)`
   color: var(--Text2);
+`;
+const Error = styled(Description)`
+  color: var(--Primary);
 `;

@@ -1,9 +1,9 @@
 import styled from "styled-components";
 import { MediumText } from "../styles/TextStyles";
 
-const Button = ({ title, name, style }) => {
+const Button = ({ title, name, style, onClick }) => {
   return (
-    <Wrapped style={style}>
+    <Wrapped style={style} onClick={onClick}>
       <Text>{title || name}</Text>
     </Wrapped>
   );
@@ -30,7 +30,7 @@ const Text = styled(MediumText)`
   margin: 0;
   color: currentColor;
   font-weight: bold;
-  font-family: 'Lato', sans-serif;
+  font-family: "Lato", sans-serif;
   font-weight: bold;
   text-transform: uppercase;
 `;

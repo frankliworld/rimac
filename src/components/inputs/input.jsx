@@ -33,8 +33,10 @@ const InputElement = styled.input`
   border-color: ${(props) => (props.invalid ? "var(--Primary)" : "#c5cbe0")};
   border-style: solid;
   height: 56px;
+  width: 100%;
   padding: 0 16px;
   border-radius: 4px;
+  font-family: 'Lato', sans-serif;
 `;
 const Message = styled(TextSmall)`
   color: var(--Primary);
