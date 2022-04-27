@@ -13,5 +13,8 @@ export const Layout = ({ children }) => {
 
 const Main = styled.main`
   height: 100vh;
+  width: 100%;
+  max-width: 2000px;
+  margin: 0 auto;
   overflow: hidden;
 `

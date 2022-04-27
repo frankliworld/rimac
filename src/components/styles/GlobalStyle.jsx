@@ -11,13 +11,13 @@ export const GlobalStyle = createGlobalStyle`
     height: 8px;
   }
   *::-webkit-scrollbar-thumb {
-    background: rgba(0, 182, 255, .2);
+    background: rgba(111, 125, 255, .2);
     border-radius: 10px;
   }
   body {
     background: white;
     @media (prefers-color-scheme: dark) {
-      /* background: black; */
+     
     }
       
     ::-webkit-scrollbar {
@@ -30,6 +30,6 @@ export const GlobalStyle = createGlobalStyle`
   }
   input:focus, textarea:focus {
     outline: none !important;
-    border-color: var(--Primary);
+    border-color: var(--Secondary);
   }
 `;

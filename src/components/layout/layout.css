@@ -10,7 +10,7 @@
 
   --Blue: rgb(10, 132, 255);
   --Green: rgb(48, 209, 88);
-  --Indigo: #6F7DFF;
+  --Indigo: rgb(111, 125, 255);
   --Orange: rgb(255, 159, 10);
   --Pink: rgb(255, 55, 95);
   --Purple: rgb(191, 90, 242);
@@ -24,7 +24,6 @@ html {
   -ms-text-size-adjust: 100%;
   -webkit-text-size-adjust: 100%;
   font: 112.5%/1.45em 'Roboto', sans-serif;
-  /* font-size: 18px; */
   box-sizing: border-box;
   overflow-y: scroll;
   scroll-behavior: smooth;
@@ -34,7 +33,7 @@ body {
   margin: 0;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  color: hsla(0, 0%, 0%, 0.8);
+  color: var(--Text);
   font-family: var(--Font);
   font-weight: normal;
   word-wrap: break-word;
@@ -443,7 +442,6 @@ table {
   padding-right: 0;
   padding-top: 0;
   margin-bottom: 1.45rem;
-  /* font-size: 1rem; */
   white-space: nowrap;
   line-height: 1.45rem;
   border-collapse: collapse;
@@ -615,7 +613,7 @@ pre tt:after {
 }
 
 ::-webkit-file-upload-button {
-  background: rgb(45 56 150 / 10%);
+  background: rgb(111 125 255 / 10%);
   color: var(--Primary);
   border-radius: 18px;
   border: none;
@@ -625,14 +623,8 @@ pre tt:after {
   font-weight: bold;
 }
 ::-webkit-file-upload-button:hover {
-  background: rgb(45 56 150 / 20%);
+  background: rgb(111 125 255 / 20%);
 }
 input[type="file" i] {
   padding: 0;
 }
-
-/* @media only screen and (max-width: 480px) {
-  html {
-    font-size: 100%;
-  }
-} */

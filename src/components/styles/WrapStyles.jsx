@@ -1,41 +1,79 @@
+import { useEffect, useState, startTransition } from "react";
 import styled from "styled-components";
 import { Breakpoints, Media } from "../../utils/io";
 
-export const Container = styled.div`
+export const Container = ({ children, align, ...props }) => {
+  const [padding, setPadding] = useState(0);
+  const [customPadding, setCustomPadding] = useState(0);
+  useEffect(() => {
+    startTransition(() => {
+      handleResize();
+      window.addEventListener("resize", handleResize);
+      return () => {
+        window.removeEventListener("resize", handleResize);
+      };
+    });
+  }, []);
+  const handleResize = () => {
+    const container = document.querySelector(".container");
+    const ww = window.innerWidth > 2000 ? 2000 : window.innerWidth;
+    const cw = container.getBoundingClientRect().width;
+    const _customPadding = ww < 2000 ? 32 : 0;
+    const _padding = (ww - cw) / 2;
+    setPadding(_padding);
+    setCustomPadding(_customPadding);
+  };
+  return (
+    <WrappedContainer
+      {...props}
+      md={align}
+      pd={padding}
+      cpd={customPadding}
+      layout
+    >
+      {children}
+    </WrappedContainer>
+  );
+};
+
+export const WrappedContainer = styled.div`
   width: 100%;
   height: 100%;
   ${(props) =>
-    props.align === "center" &&
+    props.md === "center" &&
     `
     margin: 0 auto;
+    padding: 0 ${props.cpd}px;
   `}
   ${(props) =>
-    props.align === "left" &&
+    props.md === "left" &&
     `
-    margin-right: auto;
+    padding-left: ${props.pd + props.cpd || 0}px;
   `}
   ${(props) =>
-    props.align === "right" &&
+    props.md === "right" &&
     `
-    margin-left: auto; ;
+    padding-right: ${props.pd + props.cpd || 0}px;
   `}
   @media ${Media.mobile} {
     max-width: ${Breakpoints.mobile};
-    /* background: #d4b170; */
   }
   @media ${Media.tablet} {
     max-width: ${Breakpoints.tablet};
-    /* background: #77bc77; */
   }
   @media ${Media.desktop} {
     max-width: ${Breakpoints.desktop};
-    /* background: #7474de; */
+  }
+  @media ${Media.desktopL} {
+    max-width: ${Breakpoints.desktopL};
+  }
+  @media ${Media.desktopXL} {
+    max-width: ${Breakpoints.desktopXL};
   }
 `;
 
 export const Grid = styled.div`
   display: grid;
-  background: #f3c4cc;
   ${(props) =>
     props.columns && `grid-template-columns: repeat(${props.columns}, 1fr);`};
   ${(props) => props.rows && `grid-template-rows: ${props.rows}`};
