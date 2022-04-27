@@ -1,0 +1,21 @@
+{
+  "files": {
+    "main.css": "/rimac/static/css/main.636c6f3f.css",
+    "main.js": "/rimac/static/js/main.ef6d06b6.js",
+    "static/js/787.ea1fd698.chunk.js": "/rimac/static/js/787.ea1fd698.chunk.js",
+    "static/media/graph-welcome.svg": "/rimac/static/media/graph-welcome.e254760d3d86a38d9b495341dfd3e09b.svg",
+    "static/media/bg-graph-main.svg": "/rimac/static/media/bg-graph-main.6a1210fcc76955e1a8299be1d954d2bd.svg",
+    "static/media/profile.svg": "/rimac/static/media/profile.5a80bd1ae3ddd94d0516aca7ec3de4fc.svg",
+    "static/media/covering-3.svg": "/rimac/static/media/covering-3.5b93a851d173beb8718b98af757201bf.svg",
+    "static/media/covering-2.svg": "/rimac/static/media/covering-2.569f727b410fe2ffdee4f69f098d4766.svg",
+    "static/media/covering-1.svg": "/rimac/static/media/covering-1.68cda6af5e5c6f0d61c8e026b58c4901.svg",
+    "index.html": "/rimac/index.html",
+    "main.636c6f3f.css.map": "/rimac/static/css/main.636c6f3f.css.map",
+    "main.ef6d06b6.js.map": "/rimac/static/js/main.ef6d06b6.js.map",
+    "787.ea1fd698.chunk.js.map": "/rimac/static/js/787.ea1fd698.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.636c6f3f.css",
+    "static/js/main.ef6d06b6.js"
+  ]
+}
