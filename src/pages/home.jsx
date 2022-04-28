@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
 import styled from "styled-components";
-import Button from "../components/buttons/button";
 import Enrollment from "../components/cards/enrollment";
 import { Master } from "../components/layout/master";
 import {
@@ -15,8 +14,10 @@ import Amount from "../components/cards/amount";
 import Covering from "../components/cards/covering";
 import data from "../services/data";
 import Resume from "../components/cards/resume";
+import { useAppContext } from "../context/context";
 
 const Home = () => {
+  const {user} = useAppContext();
   const [amount, setAmount] = useState(0);
   const [price, setPrice] = useState(20);
   const [list, setList] = useState([]);
@@ -64,10 +65,10 @@ const Home = () => {
           <Section className="sec-1">
             <Back />
             <Title>
-              ¡Hola, <Span>Frank!</Span>
+              ¡Hola, <Span>{user.name}!</Span>
             </Title>
             <Text>Conoce las coberturas para tu plan</Text>
-            <Enrollment />
+            <Enrollment plaque={user.plaque}/>
             <Amount min={min} max={max} changeValue={(x) => changeAmount(x)} />
             <hr />
             <Subtitle>Agrega o quita coberturas</Subtitle>

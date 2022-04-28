@@ -1,20 +1,24 @@
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
-import {
-  BodyMain,
-  TextSmall,
-} from "../components/styles/TextStyles";
+import { BodyMain, TextSmall } from "../components/styles/TextStyles";
 import ImageWelcome from "../assets/icons/graph-welcome.svg";
 import { Header } from "../components/layout/header";
 import { Media } from "../utils/io";
 import Button from "../components/buttons/button";
 import { Container } from "../components/styles/WrapStyles";
+import { useAppContext } from "../context/context";
+import { message } from "antd";
+
 const Welcome = () => {
   const navigate = useNavigate();
+  const {user} = useAppContext();
+
   const handleClick = () => {
+    message.success("Se ha enviado un correo de bienvenida a su cuenta de correo.");
     window.localStorage.removeItem("auth");
     navigate("/login");
-  }
+  };
+
   return (
     <Wrapper>
       <Header />
@@ -31,7 +35,7 @@ const Welcome = () => {
             Enviaremos la confirmación de compra de tu Plan Vehícular Tracking a
             tu correo:
           </Text>
-          <Text>joel.sanchez@gmail.com</Text>
+          <Text>{user.email}</Text>
           <Button title="cómo usar mi seguro" onClick={handleClick} />
         </Section>
       </CustomContainer>
@@ -91,7 +95,7 @@ const CustomContainer = styled(Container)`
   }
   @media ${Media.mobile} {
     grid-template-rows: repeat(3, 1fr);
-    .image{
+    .image {
       grid-row-start: 1;
       grid-row-end: span 1;
       grid-column-start: 1;

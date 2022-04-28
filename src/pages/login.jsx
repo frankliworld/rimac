@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import Button from "../components/buttons/button";
@@ -15,6 +15,8 @@ import { Container, Grid } from "../components/styles/WrapStyles";
 import { Media } from "../utils/io";
 import Bg from "../assets/icons/bg-graph-main.svg";
 import { message } from "antd";
+import { useAppContext } from "../context/context";
+import users from "../services/users";
 
 const Login = () => {
   return (
@@ -106,6 +108,9 @@ const By = styled.div`
   line-height: 20px;
   letter-spacing: 0.2px;
   color: #a3abcc;
+  @media ${Media.mobile} {
+    display: none;
+  }
 `;
 const BgImage = styled.img`
   position: absolute;
@@ -142,6 +147,7 @@ const Form = () => {
   const location = useLocation();
   const from = location.state?.from?.pathname || "/";
 
+  const { dispatch } = useAppContext();
   const [data, setData] = useState({});
   const [checked, setChecked] = useState(false);
   const [formStatus, setFormStatus] = useState({
@@ -159,6 +165,25 @@ const Form = () => {
         "Ingrese una placa válida de 6 a 8 dígitos, en mayúsculas ejemplo: ABC-123",
     },
   });
+
+  useEffect(() => {
+    handleGetUser();
+  }, []);
+
+  const handleGetUser = async () => {
+    // 1 - 10 users val random
+    const random = Math.floor(Math.random() * 10) + 1;
+    try {
+      const res = await users.getUser(random);
+      const newObj = {
+        ...res,
+        phone: "",
+      };
+      setData(newObj);
+    } catch (e) {
+      console.log(e.message);
+    }
+  };
 
   const hangleChange = (e) => {
     setData({
@@ -196,8 +221,8 @@ const Form = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     if (validate()) {
-      console.log("Datos guardados");
       window.localStorage.setItem("auth", JSON.stringify(data));
+      dispatch({ type: "LOGIN", payload: data });
       e.target.reset();
       navigate(from, { replace: true });
     }

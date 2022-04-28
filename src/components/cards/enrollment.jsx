@@ -1,15 +1,13 @@
 import styled from "styled-components";
 import { MediumText, TextSmall } from "../styles/TextStyles";
-import MyImageSvg from "../../assets/icons/profile.svg";
-const Enrollment = () => {
-  const user = window.localStorage.getItem("auth");
-  const parse = JSON.parse(user);
-  const { plaque } = parse;
+import MyImage from "../../assets/icons/profile.svg";
+
+const Enrollment = ({plaque}) => {
   return (
     <Wrapper>
       <Plaque>Placa: {plaque || "C2U-114"}</Plaque>
       <Name>Wolkswagen 2019 Golf</Name>
-      <Avatar src={MyImageSvg} />
+      <Avatar src={MyImage} />
     </Wrapper>
   );
 };
